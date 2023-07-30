@@ -30,6 +30,19 @@ This Makejail uses a script to set the gitea options in `/usr/local/etc/gitea/co
 3. `_0X2E_` will be replaced by `.` and `_0X2D_` by `-`.
 4. To use the blank or global section, use `DEFAULT` as the section.
 
+## Configuration file
+
+We can use a static configuration file to deploy our git server in combination with environment variables.
+
+```sh
+appjail makejail -j gitea -f gh+AppJail-makejails/gitea \
+    -V GITEA__DEFAULT__APP_NAME="Welcome to my git server!" \
+    -o virtualnet=":gitea default" \
+    -o nat \
+    -o expose=3000 -- \
+        --gitea_config_file /tmp/app.ini
+```
+
 ## SSH
 
 **TODO**
