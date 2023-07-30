@@ -1,0 +1,97 @@
+#!/bin/sh
+
+EX_USAGE=64
+EX_NOINPUT=66
+
+main()
+{
+	local _o
+	local opt_del=0
+	local opt_set=0
+	local filename="/usr/local/etc/gitea/conf/app.ini"
+	local key=
+	local section=
+	local value=
+
+	while getopts ":DSf:k:s:v:" _o; do
+		case "${_o}" in
+			D)
+				opt_del=1
+				;;
+			S)
+				opt_set=1
+				;;
+			f)
+				filename="${OPTARG}"
+				;;
+			k)
+				key="${OPTARG}"
+				;;
+			s)
+				section="${OPTARG}"
+				;;
+			v)
+				value="${OPTARG}"
+				;;
+			*)
+				usage
+				exit ${EX_USAGE}
+				;;
+		esac
+	done
+
+	_chk_file "${filename}"
+
+	if [ ${opt_del} -eq 1 ]; then
+		initool_del "${filename}" "${section}" "${key}"
+	elif [ ${opt_set} -eq 1 ]; then
+		if [ -z "${key}" ]; then
+			usage
+			exit ${EX_USAGE}
+		fi
+
+		initool_set "${filename}" "${section}" "${key}" "${value}"
+	else
+		usage
+		exit ${EX_USAGE}
+	fi
+}
+
+_chk_file()
+{
+	local filename="$1"
+
+	if [ ! -f "${filename}" ]; then
+		printf "%s\n" "${filename}: No such file or directory." >&2
+		exit ${EX_NOINPUT}
+	fi
+}
+
+initool_set()
+{
+	local filename="$1" section="$2" key="$3" value="$4"
+
+	initool s "${filename}" "${section}" "${key}" "${value}" > "${filename}.tmp" &&
+		mv "${filename}.tmp" "${filename}" || exit $?
+}
+
+initool_del()
+{
+	local filename="$1" section="$2" key="$3"
+
+	if [ -n "${key}" ]; then
+		initool d "${filename}" "${section}" "${key}" > "${filename}.tmp"
+	else
+		initool d "${filename}" "${section}" > "${filename}.tmp"
+	fi && mv "${filename}.tmp" "${filename}" || exit $?
+}
+
+usage()
+{
+	cat << EOF
+usage: gitea-config -D [-f filename] [-k key] [-s section]
+       gitea-config -S [-f filename] [-s section] [-v value] -k key
+EOF
+}
+
+main "$@"

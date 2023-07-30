@@ -1,0 +1,12 @@
+INCLUDE options/options.makejail
+
+ARG gitea_tag=13.2
+
+FROM --entrypoint gh+AppJail-makejails/gitea gitea:${gitea_tag}
+
+COPY usr
+
+RUN environment-to-ini
+
+SYSRC gitea_enable=YES
+SERVICE gitea start

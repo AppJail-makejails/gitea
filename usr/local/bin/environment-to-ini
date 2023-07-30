@@ -1,0 +1,29 @@
+#!/bin/sh
+
+main()
+{
+	env | grep -Ee '^GITEA__[A-Z0-9_]+__[A-Z0-9_]+=.*$' | while IFS= read -r env; do
+		env_name=`printf "%s" "${env}" | cut -s -d "=" -f1`
+		env_value=`printf "%s" "${env}" | cut -s -d "=" -f2-`
+
+		section=`printf "%s" "${env}" | sed -Ee 's/^GITEA__([A-Z0-9_]+)__[A-Z0-9_]+=.*$/\1/'`
+		key=`printf "%s" "${env}" | sed -Ee 's/^GITEA__[A-Z0-9_]+__([A-Z0-9_]+)=.*$/\1/'`
+
+		if [ "${section}" = "default" ]; then
+			gitea-config -S -k "${key}" -v "${env_value}"
+		else
+			# tolower
+			section=`printf "%s" "${section}" | tr '[:upper:]' '[:lower:]'`
+
+			# _0X2E_ to .
+			section=`printf "%s" "${section}" | sed -Ee 's/_0x2e_/./g'`
+
+			# _0X2D_ to -
+			section=`printf "%s" "${section}" | sed -Ee 's/_0x2d_/-/g'`
+
+			gitea-config -S -s "${section}" -k "${key}" -v "${env_value}"
+		fi
+	done	
+}
+
+main "$@"
