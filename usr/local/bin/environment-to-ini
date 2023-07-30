@@ -9,7 +9,7 @@ main()
 		section=`printf "%s" "${env}" | sed -Ee 's/^GITEA__([A-Z0-9_]+)__[A-Z0-9_]+=.*$/\1/'`
 		key=`printf "%s" "${env}" | sed -Ee 's/^GITEA__[A-Z0-9_]+__([A-Z0-9_]+)=.*$/\1/'`
 
-		if [ "${section}" = "default" ]; then
+		if [ "${section}" = "DEFAULT" ]; then
 			gitea-config -S -k "${key}" -v "${env_value}"
 		else
 			# tolower
