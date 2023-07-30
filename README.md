@@ -54,7 +54,29 @@ appjail makejail -j gitea -f gh+AppJail-makejails/gitea \
 
 ## How to build the Image
 
-**TODO**
+Make any changes you want to your image.
+
+```
+INCLUDE options/network.makejail
+INCLUDE gh+AppJail-makejails/gitea --file build.makejail
+```
+
+Build the jail:
+
+```
+appjail makejail -j gitea
+```
+
+Remove unportable or unnecessary files and directories and export the jail:
+
+```sh
+appjail stop sopel
+appjail cmd local sopel sh -c "rm -f var/log/*"
+appjail cmd local sopel sh -c "rm -f var/cache/pkg/*"
+appjail cmd local sopel sh -c "rm -f var/run/*"
+appjail cmd local sopel vi etc/rc.conf
+appjail image export sopel
+```
 
 ## Tags
 
