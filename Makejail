@@ -1,10 +1,20 @@
 INCLUDE options/options.makejail
 
+ARG gitea_config_file?
 ARG gitea_tag=13.2
 
 FROM --entrypoint gh+AppJail-makejails/gitea gitea:${gitea_tag}
 
 COPY usr
+
+RAW if [ -n "${gitea_config_file}" ]; then
+	RAW if [ ! -f "${gitea_config_file}" ]; then
+		CMD echo "###> '${gitea_config_file}' is not a file or does not exist. <###"
+		RAW exit 1
+	RAW fi
+
+	COPY "${gitea_config_file}" /usr/local/etc/gitea/conf/app.ini
+RAW fi
 
 RUN environment-to-ini
 
