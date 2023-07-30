@@ -10,7 +10,25 @@ wikipedia.org/wiki/Gitea
 
 ## Basic usage
 
-**TODO**
+Suppose the host IP is `192.168.1.102`:
+
+```sh
+appjail makejail -j gitea -f gh+AppJail-makejails/gitea \
+    -V GITEA__SERVER__DOMAIN=192.168.1.102 \
+    -V GITEA__DEFAULT__APP_NAME="Welcome to my git server!" \
+    -o virtualnet=":gitea default" \
+    -o nat \
+    -o expose=3000
+```
+
+We can now publicly access our git server through `http://192.168.1.102:3000`.
+
+This Makejail uses a script to set the gitea options in `/usr/local/etc/gitea/conf/app.ini` using environment variables that can be set using `appjail makejail -V` as you can see above. The script follows very simple rules:
+
+1. Environment variables must have the form: `GITEA__SECTION_NAME__KEY_NAME`.
+2. `SECTION` and `KEY_NAME` must be in uppercase. They can contain `_` and numbers.
+3. `_0X2E_` will be replaced by `.` and `_0X2D_` by `-`.
+4. To use the blank or global section, use `DEFAULT` as the section.
 
 ## SSH
 
