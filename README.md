@@ -45,7 +45,34 @@ appjail makejail -j gitea -f gh+AppJail-makejails/gitea \
 
 ## SSH
 
-**TODO**
+```sh
+appjail makejail -j gitea -f gh+AppJail-makejails/gitea \
+    -V GITEA__SERVER__DOMAIN=192.168.1.102 \
+    -V GITEA__DEFAULT__APP_NAME="Welcome to my git server!" \
+    -o virtualnet=":gitea default" \
+    -o nat \
+    -o expose=3000 \
+    -o expose=2022:22 \
+    -o copydir=/tmp/files \
+    -o file=/etc/rc.conf.local
+```
+
+The tree structure of the `/tmp/files/` directory is as follows:
+
+```
+# tree -pug /tmp/files
+[drwxr-xr-x root     wheel   ]  /tmp/files/
+└── [drwxr-xr-x root     wheel   ]  etc
+    └── [-rw-r--r-- root     wheel   ]  rc.conf.local
+
+    2 directories, 1 file
+```
+
+**/etc/rc.conf.local**:
+
+```
+sshd_enable="YES"
+```
 
 ### Arguments
 
