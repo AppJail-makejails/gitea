@@ -34,6 +34,10 @@ This Makejail uses a script to set the gitea options in `/usr/local/etc/gitea/co
 
 **TODO**
 
+### Arguments
+
+* `gitea_tag` (default: `13.2`): see [#tags](#tags).
+
 ## How to build the Image
 
 **TODO**
