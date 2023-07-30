@@ -47,6 +47,7 @@ appjail makejail -j gitea -f gh+AppJail-makejails/gitea \
 
 ```sh
 appjail makejail -j gitea -f gh+AppJail-makejails/gitea \
+    -V GITEA__SERVER__SSH_PORT=2022 \
     -V GITEA__SERVER__DOMAIN=192.168.1.102 \
     -V GITEA__DEFAULT__APP_NAME="Welcome to my git server!" \
     -o virtualnet=":gitea default" \
