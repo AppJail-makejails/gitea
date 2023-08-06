@@ -1,17 +1,9 @@
-tags: 13.1
-13.1.arch: amd64
-13.1.name: "gitea"
-13.1.timestamp.amd64: 1690683561
-13.1.sum.amd64: 6d5a3fea8345c142c51b5c32b224f962ef31a2f9a76ba5859c5ead06c376f178
-13.1.size.amd64: 96504104
-13.1.source.amd64: https://dtxdf.duckdns.org/62Cfj052za/gitea_13_1_amd64_image_appjail
-13.1.source.amd64+: https://anonget.onrender.com/62Cfj052za/gitea_13_1_amd64_image_appjail
-
-tags+: 13.2
+tags: 13.2
 13.2.arch: amd64
 13.2.name: "gitea"
-13.2.timestamp.amd64: 1690682835
-13.2.sum.amd64: be74118f38b09fca2f5e5035f732dd2e6819743c178fa16bca6714c5c6733308
-13.2.size.amd64: 98369732
-13.2.source.amd64: https://dtxdf.duckdns.org/r4Dbj35aza/gitea_13_2_amd64_image_appjail
-13.2.source.amd64+: https://anonget.onrender.com/r4Dbj35aza/gitea_13_2_amd64_image_appjail
+13.2.timestamp.amd64: 1691329735
+13.2.sum.amd64: c48536e5b31783816e5d57c071ec0c5f60f39bfd347b27835470fa8a3ff3ce66
+13.2.size.amd64: 97247440
+13.2.source.amd64: https://dtxdf.duckdns.org/jbx0R96fz3/gitea_13_2_amd64_image_appjail
+13.2.source.amd64+: https://storm-bsd.duckdns.org/jbx0R96fz3/gitea_13_2_amd64_image_appjail
+13.2.source.amd64+: https://anonget.onrender.com/jbx0R96fz3/gitea_13_2_amd64_image_appjail
