@@ -1,9 +1,7 @@
 tags: 13.2
 13.2.arch: amd64
 13.2.name: "gitea"
-13.2.timestamp.amd64: 1691329735
-13.2.sum.amd64: c48536e5b31783816e5d57c071ec0c5f60f39bfd347b27835470fa8a3ff3ce66
-13.2.size.amd64: 97247440
-13.2.source.amd64: https://dtxdf.duckdns.org/jbx0R96fz3/gitea_13_2_amd64_image_appjail
-13.2.source.amd64+: https://storm-bsd.duckdns.org/jbx0R96fz3/gitea_13_2_amd64_image_appjail
-13.2.source.amd64+: https://anonget.onrender.com/jbx0R96fz3/gitea_13_2_amd64_image_appjail
+13.2.timestamp.amd64: 1692074081
+13.2.sum.amd64: 8796d3e0b92c750534cb3f4ad0ed2893a0fd85efe96e98de9a475dc420936ee9
+13.2.size.amd64: 97167176
+13.2.source.amd64: "https://drive.google.com/uc?export=download&id=1sSuVHsF13BQOaAGkiLhEBA4Q7w32Dbub"
