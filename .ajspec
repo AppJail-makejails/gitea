@@ -1,7 +1,7 @@
 tags: 13.2
 13.2.arch: amd64
 13.2.name: "gitea"
-13.2.timestamp.amd64: 1692074081
-13.2.sum.amd64: 8796d3e0b92c750534cb3f4ad0ed2893a0fd85efe96e98de9a475dc420936ee9
-13.2.size.amd64: 97167176
-13.2.source.amd64: "https://drive.google.com/uc?export=download&id=1sSuVHsF13BQOaAGkiLhEBA4Q7w32Dbub"
+13.2.timestamp.amd64: 1692959402
+13.2.sum.amd64: b85b5e1028410acb3bc772b64429790bb6728e465035c9bd937e3176d4ef0712
+13.2.size.amd64: 97869648
+13.2.source.amd64: "http://appjail.hpc.at/gitea/13.2-amd64-image.appjail"
