@@ -80,32 +80,6 @@ sshd_enable="YES"
 * `gitea_tag` (default: `13.2`): see [#tags](#tags).
 * `gitea_config_file` (optional): custom configuration file.
 
-## How to build the Image
-
-Make any changes you want to your image.
-
-```
-INCLUDE options/network.makejail
-INCLUDE gh+AppJail-makejails/gitea --file build.makejail
-```
-
-Build the jail:
-
-```
-appjail makejail -j gitea
-```
-
-Remove unportable or unnecessary files and directories and export the jail:
-
-```sh
-appjail stop gitea
-appjail cmd local gitea sh -c "rm -f var/log/*"
-appjail cmd local gitea sh -c "rm -f var/cache/pkg/*"
-appjail cmd local gitea sh -c "rm -f var/run/*"
-appjail cmd local gitea vi etc/rc.conf
-appjail image export gitea
-```
-
 ## Tags
 
 | Tag    | Arch    | Version        | Type   |
