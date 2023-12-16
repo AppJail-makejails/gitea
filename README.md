@@ -80,6 +80,13 @@ sshd_enable="YES"
 * `gitea_tag` (default: `13.2`): see [#tags](#tags).
 * `gitea_config_file` (optional): custom configuration file.
 
+### Volumes
+
+| Name      | Owner | Group | Perm | Type | Mountpoint     |
+| --------- | ----- | ----- | ---- | ---- | -------------- |
+| gitea-db  | 211   | 0     |  -   |  -   | /var/db/gitea  |
+| gitea-git | 211   | 211   |  -   |  -   | /usr/local/git |
+
 ## Tags
 
 | Tag    | Arch    | Version        | Type   |
