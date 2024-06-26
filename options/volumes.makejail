@@ -1,4 +1,3 @@
 OPTION volume=gitea-db mountpoint:/var/db/gitea owner:211 group:0
 OPTION volume=gitea-log mountpoint:/var/log/gitea owner:211 group:0
-OPTION volume=gitea-repositories mountpoint:/var/db/gitea/gitea-repositories owner:211 group:0
 OPTION volume=gitea-git mountpoint:/usr/local/git owner:211 group:211
