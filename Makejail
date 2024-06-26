@@ -16,6 +16,15 @@ RAW if [ -n "${gitea_config_file}" ]; then
 	COPY "${gitea_config_file}" /usr/local/etc/gitea/conf/app.ini
 RAW fi
 
+ENV GITEA__SESSION__PROVIDER_CONFIG=/var/db/gitea/data/sessions
+ENV GITEA__SERVER__APP_DATA_PATH=/var/db/gitea/data
+ENV GITEA__REPOSITORY__ROOT=/var/db/gitea/gitea-repositories
+ENV GITEA__PICTURE__AVATAR_UPLOAD_PATH=/var/db/gitea/data/avatars
+ENV GITEA__LOG__ROOT_PATH=/var/log/gitea
+ENV GITEA__REPOSITORY_0X2E_UPLOAD__TEMP_PATH=/var/db/gitea/data/tmp/uploads
+
+RUN create-directories
+
 RUN environment-to-ini
 
 SYSRC gitea_enable=YES

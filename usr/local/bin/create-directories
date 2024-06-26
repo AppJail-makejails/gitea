@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+GIT_USER=git
+
+create_dir()
+{
+    mkdir -p -- "$1" &&
+        chown "${GIT_USER}" "$1"
+}
+
+# Workaround since Gitea v1.21.11 does not automatically create the directories.
+
+create_dir "/var/db/gitea"
+create_dir "${GITEA__SESSION__PROVIDER_CONFIG}"
+create_dir "${GITEA__SERVER__APP_DATA_PATH}"
+create_dir "${GITEA__SERVER__APP_DATA_PATH}/${GITEA__PACKAGES__CHUNKED_UPLOAD_PATH:-tmp/package-upload}"
+create_dir "${GITEA__REPOSITORY__ROOT}"
+create_dir "${GITEA__PICTURE__AVATAR_UPLOAD_PATH}"
+create_dir "${GITEA__LOG__ROOT_PATH}"
+create_dir "${GITEA__REPOSITORY_0X2E_UPLOAD__TEMP_PATH}"
