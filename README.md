@@ -85,6 +85,7 @@ sshd_enable="YES"
 | Name      | Owner | Group | Perm | Type | Mountpoint     |
 | --------- | ----- | ----- | ---- | ---- | -------------- |
 | gitea-db  | 211   | 0     |  -   |  -   | /var/db/gitea  |
+| gitea-log | 211   | 0     |  -   |  -   | /var/log/gitea |
 | gitea-git | 211   | 211   |  -   |  -   | /usr/local/git |
 
 ## Tags
