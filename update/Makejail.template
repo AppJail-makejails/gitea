@@ -2,7 +2,7 @@ INCLUDE options/options.makejail
 
 ARG gitea_config_file?
 ARG gitea_ajspec=gh+AppJail-makejails/gitea
-ARG gitea_tag=13.4
+ARG gitea_tag=%%TAG1%%
 
 FROM --entrypoint "${gitea_ajspec}" gitea:${gitea_tag}
 
