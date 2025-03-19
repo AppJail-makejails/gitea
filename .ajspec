@@ -1,16 +1,17 @@
 tags+: 13.5
 13.5.arch: amd64
 13.5.name: "gitea"
-13.5.timestamp.amd64: 1742077837
-13.5.sum.amd64: 4400926ed83b859766bab40e186953b3b1b49f8f6ffbba07c86a2f53ab3e7f40
-13.5.size.amd64: 160878053
+13.5.timestamp.amd64: 1742351008
+13.5.sum.amd64: 28c1a534d8054e9c73a92f65286235dff96b6795f9ec4d3790238f083337280e
+13.5.size.amd64: 161105007
 13.5.source.amd64: "http://appjail.hpc.at/gitea/13.5-amd64-image.appjail"
 13.5.source.amd64+: "https://images.all101bsd.download/gitea/13.5-amd64-image.appjail"
 tags+: 14.2
 14.2.arch: amd64
 14.2.name: "gitea"
-14.2.timestamp.amd64: 1742078485
-14.2.sum.amd64: d42665cae650d3014526993029870f4751adb7fea520637340c9dba511919916
-14.2.size.amd64: 160153921
+14.2.timestamp.amd64: 1742351462
+14.2.sum.amd64: 3dbb69e7fa0fb63ca020fdba06eb37131ed3a56586ae07df68dbae14465f37d9
+14.2.size.amd64: 160222728
 14.2.source.amd64: "http://appjail.hpc.at/gitea/14.2-amd64-image.appjail"
 14.2.source.amd64+: "https://images.all101bsd.download/gitea/14.2-amd64-image.appjail"
+maintenance: "This image is uploading, please wait a moment and try again. If you are importing this image using a Makejail that has the '--<name>_ajspec' argument, you can use the 'reproduce' method to use 'appjail-reproduce'. See 'appjail-image(5)' for details."
