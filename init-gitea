@@ -1,0 +1,68 @@
+#!/bin/sh
+
+. /lib.subr
+
+if [ ! -d /data/git/.ssh ]; then
+    mkdir -p /data/git/.ssh
+fi
+
+# Set the correct permissions on the .ssh directory and authorized_keys file,
+# or sshd will refuse to use them and lead to clone/push/pull failures.
+# It could happen when users have copied their data to a new volume and changed the file permission by accident,
+# and it would be very hard to troubleshoot unless users know how to check the logs of sshd which is started by s6.
+chmod 700 /data/git/.ssh
+if [ -f /data/git/.ssh/authorized_keys ]; then
+    chmod 600 /data/git/.ssh/authorized_keys
+fi
+
+if [ ! -f /data/git/.ssh/environment ]; then
+    echo "GITEA_CUSTOM=$GITEA_CUSTOM" >| /data/git/.ssh/environment
+    chmod 600 /data/git/.ssh/environment
+
+elif ! grep -q "^GITEA_CUSTOM=$GITEA_CUSTOM$" /data/git/.ssh/environment; then
+    sed -i '' /^GITEA_CUSTOM=/d /data/git/.ssh/environment
+    echo "GITEA_CUSTOM=$GITEA_CUSTOM" >> /data/git/.ssh/environment
+fi
+
+if [ ! -f ${GITEA_CUSTOM}/conf/app.ini ]; then
+    mkdir -p ${GITEA_CUSTOM}/conf
+
+    # Set INSTALL_LOCK to true only if SECRET_KEY is not empty and
+    # INSTALL_LOCK is empty
+    if [ -n "$SECRET_KEY" ] && [ -z "$INSTALL_LOCK" ]; then
+        INSTALL_LOCK=true
+    fi
+
+    # Substitute the environment variables in the template
+    export APP_NAME=${APP_NAME:-"Gitea: Git with a cup of tea"}
+    export RUN_MODE=${RUN_MODE:-"prod"}
+    export DOMAIN=${DOMAIN:-"localhost"}
+    export SSH_DOMAIN=${SSH_DOMAIN:-"localhost"}
+    export HTTP_PORT=${HTTP_PORT:-"3000"}
+    export ROOT_URL=${ROOT_URL:-""}
+    export DISABLE_SSH=${DISABLE_SSH:-"false"}
+    export SSH_PORT=${SSH_PORT:-"22"}
+    export SSH_LISTEN_PORT=${SSH_LISTEN_PORT:-"${SSH_PORT}"}
+    export LFS_START_SERVER=${LFS_START_SERVER:-"false"}
+    export DB_TYPE=${DB_TYPE:-"sqlite3"}
+    export DB_HOST=${DB_HOST:-"localhost:3306"}
+    export DB_NAME=${DB_NAME:-"gitea"}
+    export DB_USER=${DB_USER:-"root"}
+    export DB_PASSWD=${DB_PASSWD:-""}
+    export INSTALL_LOCK=${INSTALL_LOCK:-"false"}
+    export DISABLE_REGISTRATION=${DISABLE_REGISTRATION:-"false"}
+    export REQUIRE_SIGNIN_VIEW=${REQUIRE_SIGNIN_VIEW:-"false"}
+    export SECRET_KEY=${SECRET_KEY:-""}
+    envsubst < /templates/app.ini > ${GITEA_CUSTOM}/conf/app.ini
+
+    chown ${PUSER}:git ${GITEA_CUSTOM}/conf/app.ini
+fi
+
+# Replace app.ini settings with env variables in the form GITEA__SECTION_NAME__KEY_NAME
+/environment-to-ini --config ${GITEA_CUSTOM}/conf/app.ini
+
+# only chown if current owner is not already the gitea ${PUSER}. No recursive check to save time
+if ! [ $(ls -ld /data/gitea | awk '{print $3}') = ${PUSER} ]; then chown -R ${PUSER}:git /data/gitea; fi
+if ! [ $(ls -ld /app  | awk '{print $3}') = ${PUSER} ]; then chown -R ${PUSER}:git /app;  fi
+if ! [ $(ls -ld /data/git   | awk '{print $3}') = ${PUSER} ]; then chown -R ${PUSER}:git /data/git;   fi
+chmod 0755 /data/gitea /app /data/git
