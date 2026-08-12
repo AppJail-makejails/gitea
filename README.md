@@ -78,7 +78,7 @@ services:
         - PGID: 1000
         - SSH_PORT: 2222
         - GITEA__database__DB_TYPE: mysql
-        - GITEA__database__HOST: 10.0.0.60:3306
+        - GITEA__database__HOST: gitea-db:3306
         - GITEA__database__NAME: gitea
         - GITEA__database__USER: gitea
         - GITEA__database__PASSWD: gitea
@@ -106,7 +106,6 @@ services:
       - db-data: /var/db/mysql
     options:
       - container: 'args:--pull'
-      - virtualnet: 'ajnet:<random> address:10.0.0.60 default'
 
 volumes:
   gitea-data:
@@ -134,7 +133,7 @@ services:
         - PGID: 1000
         - SSH_PORT: 2222
         - GITEA__database__DB_TYPE: postgres
-        - GITEA__database__HOST: 10.0.0.60:5432
+        - GITEA__database__HOST: gitea-db:5432
         - GITEA__database__NAME: gitea
         - GITEA__database__USER: gitea
         - GITEA__database__PASSWD: gitea
@@ -161,7 +160,6 @@ services:
       - db-data: /var/db/postgres
     options:
       - container: 'args:--pull'
-      - virtualnet: 'ajnet:<random> address:10.0.0.60 default'
       - template: !ENV '${PWD}/template.conf'
 
 volumes:
@@ -233,7 +231,7 @@ defaultrouter: NO -> 10.0.0.1
 [00:00:07] [ debug ] [gitea] `/usr/local/appjail/jails/gitea/init` exits with status code 0
 [00:00:08] [ debug ] [gitea] Executing the process specified by the container ...
 [00:00:11] [ debug ] [gitea] Running: date +%Y-%m-%d.log
-[00:00:11] [ debug ] [gitea] Executing: daemon -f -o "/var/log/appjail/jails/gitea/container/2026-08-08.log" -t "running gitea:appjail-gitea" -p "/usr/local/appjail/jails/gitea/conf/boot/oci/pid" /usr/local/libexec/appjail/jexec/jexec -l -d "/app" -e "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" -e "ASSUME_ALWAYS_YES=yes" -e "PUID=1000" -e "PGID=1000" -e "GITEA_CUSTOM=/data/gitea" -e "GITEA__database__DB_TYPE=postgres" -e "GITEA__database__HOST=10.0.0.60:5432" -e "GITEA__database__NAME=gitea" -e "GITEA__database__PASSWD=gitea" -e "GITEA__database__USER=gitea" -e "PGID=15000" -e "PUID=15000" -e "SSH_PORT=2222"  -- "gitea" "/entrypoint.sh" "goreman" "-rpc-server=false" "-f" "/Procfile" "start"
+[00:00:11] [ debug ] [gitea] Executing: daemon -f -o "/var/log/appjail/jails/gitea/container/2026-08-08.log" -t "running gitea:appjail-gitea" -p "/usr/local/appjail/jails/gitea/conf/boot/oci/pid" /usr/local/libexec/appjail/jexec/jexec -l -d "/app" -e "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" -e "ASSUME_ALWAYS_YES=yes" -e "PUID=1000" -e "PGID=1000" -e "GITEA_CUSTOM=/data/gitea" -e "GITEA__database__DB_TYPE=postgres" -e "GITEA__database__HOST=gitea-db:5432" -e "GITEA__database__NAME=gitea" -e "GITEA__database__PASSWD=gitea" -e "GITEA__database__USER=gitea" -e "PGID=15000" -e "PUID=15000" -e "SSH_PORT=2222"  -- "gitea" "/entrypoint.sh" "goreman" "-rpc-server=false" "-f" "/Procfile" "start"
 [00:00:11] [ info  ] [gitea] Detached: pid:46606, log:jails/gitea/container/2026-08-08.log
 $ appjail logs tail jails/gitea/container/2026-08-08.log
 00:14:49 gitea | 2026/08/08 00:14:49 cmd/web.go:115:showWebStartupMessage() [I] Gitea version: 1.26.4 built with go1.26.5-X:jsonv2 : pam, sqlite, sqlite_unlock_notify
