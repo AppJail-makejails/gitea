@@ -14,7 +14,7 @@ LABEL org.opencontainers.image.title="Gitea" \
 RUN set -xe; \
     \
     pkg update; \
-    pkg install -U gitea goreman gettext-runtime FreeBSD-ssh; \
+    pkg install gitea goreman gettext-runtime FreeBSD-ssh; \
     \
     if [ -z "${NO_PKGCLEAN}" ]; then \
         pkg clean -a; \
