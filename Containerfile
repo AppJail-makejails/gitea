@@ -25,7 +25,8 @@ RUN set -xe; \
 EXPOSE 22 3000
 
 ENV GITEA_WORK_DIR=/usr/local/share/gitea \
-    GITEA_CUSTOM=/data/gitea
+    GITEA_CUSTOM=/data/gitea \
+    USER=noroot
 
 VOLUME ["/data"]
 
