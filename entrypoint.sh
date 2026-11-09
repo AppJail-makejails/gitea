@@ -4,6 +4,7 @@
 
 set -e
 
+set_homedir /data/noroot
 create_user
 
 change_owner /app
